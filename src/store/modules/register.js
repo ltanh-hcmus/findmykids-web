@@ -16,8 +16,7 @@ const getters = {}
 
 const actions = {
     async add(context) {
-        console.log({ ...context.state.obj });
-        return await axios.post(`${userAPI}`, { ...context.state.obj });
+        return await axios.post(userAPI, { ...context.state.obj });
     }
 }
 
