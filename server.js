@@ -14,6 +14,6 @@ app.get(/.*/, function (req, res) {
 
 const port = process.env.PORT || 8080
 app.listen(port)
-console.log(`App is listening on port: ${port}`)
+console.log(`app is listening on port: ${port}`)
 
 // Phải chạy lệnh npm run build
