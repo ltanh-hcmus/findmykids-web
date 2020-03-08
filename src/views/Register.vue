@@ -1,10 +1,10 @@
 <template>
     <ValidationObserver ref="observer">
         <b-form>
-            <b-container class="mt-3" style="min-height: 800px">
+            <b-container class="mt-5" style="min-height: 800px">
                 <b-row>
                     <b-col lg="6" class="mx-auto">
-                        <b-form-group label-cols-sm="3" label-align-sm="right">
+                        <b-form-group label-cols-sm="4" label-align-sm="right">
                             <h2 id="form-radio-inputs" class="bv-no-focus-ring">
                                 <span class="bd-content-title">Đăng ký tài khoản</span>
                             </h2>
@@ -16,7 +16,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label="Tên đăng nhập"
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             description="Bắt buộc nhập!"
                         >
@@ -42,7 +42,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label="Mật khẩu"
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             description="Bắt buộc nhập!"
                         >
@@ -69,7 +69,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label="Nhập lại mật khẩu"
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             description="Bắt buộc nhập!"
                         >
@@ -96,7 +96,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label="Họ tên"
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             description="Bắt buộc nhập!"
                         >
@@ -122,7 +122,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label="Email"
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             description="Bắt buộc nhập!"
                         >
@@ -150,7 +150,7 @@
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label
-                            label-cols-sm="3"
+                            label-cols-sm="4"
                             label-align-sm="right"
                             label-for
                             class="mb-0"
