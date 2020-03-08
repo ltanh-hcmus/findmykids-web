@@ -10,13 +10,13 @@ import './plugins/vee-validate'
 
 Vue.config.productionTip = false
 
-Vue.config.errorHandler = function (err, vm, info) {
-  console.log(`Error: ${err.toString()}\nInfo: ${info}`);
-}
+// Vue.config.errorHandler = function (err, vm, info) {
+//   // console.log(`Error: ${err.toString()}\nInfo: ${info}`);
+// }
 
-Vue.config.warnHandler = function (msg, vm, trace) {
-  console.log(`Warn: ${msg}\nTrace: ${trace}`);
-}
+// Vue.config.warnHandler = function (msg, vm, trace) {
+//   // console.log(`Warn: ${msg}\nTrace: ${trace}`);
+// }
 
 axios.defaults.timeout = 5000;
 axios.interceptors.response.use(function (response) {
@@ -45,7 +45,9 @@ Vue.config.errorHandler = function (err, vm, info) {
     title: `Thông báo lỗi!`,
     variant: 'danger',
   });
-  console.log(err, vm, info);
+
+  return [err, vm, info]
+  // console.log(err, vm, info);
 }
 
 new Vue({
