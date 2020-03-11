@@ -47,7 +47,7 @@
                             description="Bắt buộc nhập!"
                         >
                             <ValidationProvider
-                                rules="required"
+                                rules="required|password:@confirm"
                                 name="Mật khẩu"
                                 v-slot="{ valid, errors }"
                             >
@@ -74,8 +74,9 @@
                             description="Bắt buộc nhập!"
                         >
                             <ValidationProvider
-                                rules="required"
+                                rules="'required"
                                 name="Nhập lại mật khẩu"
+                                vid="confirm"
                                 v-slot="{ valid, errors }"
                             >
                                 <b-form-input
@@ -117,6 +118,8 @@
                         </b-form-group>
                     </b-col>
                 </b-row>
+                    
+
 
                 <b-row>
                     <b-col lg="6" class="mx-auto">
@@ -144,9 +147,24 @@
                     </b-col>
                 </b-row>
 
+                <b-row>
+                    <b-col lg="6" class="mx-auto">
+                        <b-form-group
+                            label
+                            label-cols-sm="4"
+                            label-align-sm="right"
+                        >
+                        <vue-recaptcha 
+                        :sitekey=this.siteKey
+                        :loadRecaptchaScript="true">
+                        </vue-recaptcha>
+                        </b-form-group>
+                        
+                    </b-col>     
+                </b-row>
                 
 
-                <b-row>
+                <b-row >
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label
@@ -172,9 +190,10 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { msg_YN } from "@/utils/messagebox.js";
+import VueRecaptcha from "vue-recaptcha";
 
 export default {
     data() {
@@ -184,9 +203,17 @@ export default {
     },
     components: {
         ValidationObserver,
-        ValidationProvider
+        ValidationProvider,
+        VueRecaptcha
     },
     computed: {
+
+        ...mapState("resgister", {
+            user: state => state.user,
+            SiteKey: state => state.siteKey,
+            //captchaChecked: state => state.captchaChecked
+        }),
+
         UserName: {
             get() {
                 return this.$store.state.register.obj.UserName;

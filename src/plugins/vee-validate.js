@@ -8,6 +8,13 @@ extend("required", {
     message: "{_field_} bắt buộc nhập!"
 });
 
+extend('password',{
+params: ['target'],
+validate(value, {target}) {
+    return value === target;
+},
+message: 'Mật khẩu không trùng'
+});
 // extend("email", {
 //     ...email,
 //     message: "This field must be a valid email"

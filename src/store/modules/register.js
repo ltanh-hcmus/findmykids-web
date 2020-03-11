@@ -3,6 +3,7 @@ import { userAPI } from "@/store/modules/api";
 
 const state = {
     obj: {
+        SiteKey: "6LfEGOAUAAAAAFQNok4HWw5XFWR0W7Yc4rN5HQLR",
         ID: "6bc678de-5c10-11ea-bc55-0242ac130003",
         UserName: "",
         PassWord: "",
@@ -33,5 +34,6 @@ export default {
     state,
     getters,
     actions,
-    mutations
+    mutations,
+    
 }
