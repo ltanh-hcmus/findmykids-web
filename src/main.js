@@ -46,8 +46,8 @@ Vue.config.errorHandler = function (err, vm, info) {
     variant: 'danger',
   });
 
-  return [err, vm, info]
-  // console.log(err, vm, info);
+  // return [err, vm, info]
+  console.log(err, vm, info);
 }
 
 new Vue({

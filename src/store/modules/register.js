@@ -3,20 +3,38 @@ import { userAPI } from "@/store/modules/api";
 
 const state = {
     obj: {
-        ID: "6bc678de-5c10-11ea-bc55-0242ac130003",
+        ID: "",
         UserName: "",
         PassWord: "",
         RePassWord: "",
         Email: "",
-        Name: ""
+        Name: "",
+        recaptchaToken: ""
+    },
+    captchaChecked: false,
+    siteKey: "6LfrwNEUAAAAAJHcipukpxMxlsSKrlotSv37V_I1"
+}
+
+const getters = {
+    isCaptcha(state) {
+        return state.captchaChecked;
     }
 }
 
-const getters = {}
-
 const actions = {
     async add(context) {
-        return await axios.post(userAPI, { ...context.state.obj });
+        const objAdd = { ...context.state.obj };
+        const recaptchaToken = objAdd.recaptchaToken;
+        console.log("add -> recaptchaToken", recaptchaToken);
+        delete (objAdd.recaptchaToken);
+        delete (objAdd.RePassWord);
+        return await axios.post(userAPI, { ...objAdd }, {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                recaptchaToken
+            }
+        });
     }
 }
 
@@ -25,7 +43,13 @@ const mutations = {
         Object.assign(state.obj, {
             [field_value[0]]: field_value[1]
         });
-    }
+    },
+    updateReCaptchaToken: (state, captcha) => {
+        state.obj.recaptchaToken = captcha;
+    },
+    updateCaptchaChecked: (state, checked) => {
+        state.captchaChecked = checked;
+    },
 }
 
 export default {
@@ -33,5 +57,5 @@ export default {
     state,
     getters,
     actions,
-    mutations
+    mutations,
 }

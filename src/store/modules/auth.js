@@ -5,9 +5,8 @@ import { authAPI } from "@/store/modules/api";
 // OFFLINE "6LfrwNEUAAAAAJHcipukpxMxlsSKrlotSv37V_I1"
 // ONLINE "6Lco3dQUAAAAAKaK0-lubZia99rc2AEgE_3_a6As"
 const state = {
-    siteKey: "6LfrwNEUAAAAAJHcipukpxMxlsSKrlotSv37V_I1",
+    siteKey: "6LfEGOAUAAAAAFQNok4HWw5XFWR0W7Yc4rN5HQLR",
     isLogin: true,
-    // isLogin: localStorage.getItem('user-token'),
     user: {
         username: "123",
         password: "123",
