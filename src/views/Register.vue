@@ -47,8 +47,9 @@
                             description="Bắt buộc nhập!"
                         >
                             <ValidationProvider
-                                rules="required|password:@confirm"
+                                rules="required"
                                 name="Mật khẩu"
+                                vid="confirm"
                                 v-slot="{ valid, errors }"
                             >
                                 <b-form-input
@@ -74,9 +75,8 @@
                             description="Bắt buộc nhập!"
                         >
                             <ValidationProvider
-                                rules="'required"
+                                rules="required|password:@confirm"
                                 name="Nhập lại mật khẩu"
-                                vid="confirm"
                                 v-slot="{ valid, errors }"
                             >
                                 <b-form-input
@@ -118,8 +118,6 @@
                         </b-form-group>
                     </b-col>
                 </b-row>
-                    
-
 
                 <b-row>
                     <b-col lg="6" class="mx-auto">
@@ -130,7 +128,7 @@
                             description="Bắt buộc nhập!"
                         >
                             <ValidationProvider
-                                rules="required"
+                                rules="required|email"
                                 name="Email"
                                 v-slot="{ valid, errors }"
                             >
@@ -150,21 +148,28 @@
                 <b-row>
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
-                            label
+                            label="Captcha"
                             label-cols-sm="4"
                             label-align-sm="right"
+                            description="Bắt buộc nhập!"
                         >
-                        <vue-recaptcha 
-                        :sitekey=this.siteKey
-                        :loadRecaptchaScript="true">
-                        </vue-recaptcha>
+                            <b-form-group>
+                                <vue-recaptcha
+                                    ref="recaptcha"
+                                    :sitekey="siteKey"
+                                    :loadRecaptchaScript="true"
+                                    @verify="onCaptchaVerified"
+                                    @expired="onCaptchaExpired"
+                                ></vue-recaptcha>
+                                <b-form-invalid-feedback
+                                    :state="isCaptchaChecked"
+                                >Captcha không được bỏ trống!</b-form-invalid-feedback>
+                            </b-form-group>
                         </b-form-group>
-                        
-                    </b-col>     
+                    </b-col>
                 </b-row>
-                
 
-                <b-row >
+                <b-row>
                     <b-col lg="6" class="mx-auto">
                         <b-form-group
                             label
@@ -190,7 +195,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { msg_YN } from "@/utils/messagebox.js";
 import VueRecaptcha from "vue-recaptcha";
@@ -198,7 +203,8 @@ import VueRecaptcha from "vue-recaptcha";
 export default {
     data() {
         return {
-            filter: null
+            filter: null,
+            isCaptchaChecked: true
         };
     },
     components: {
@@ -207,11 +213,10 @@ export default {
         VueRecaptcha
     },
     computed: {
-
-        ...mapState("resgister", {
+        ...mapState("register", {
             user: state => state.user,
-            SiteKey: state => state.siteKey,
-            //captchaChecked: state => state.captchaChecked
+            siteKey: state => state.siteKey,
+            captchaChecked: state => state.captchaChecked
         }),
 
         UserName: {
@@ -256,14 +261,27 @@ export default {
         }
     },
     methods: {
+        onCaptchaVerified(recaptchaToken) {
+            this.updateCaptchaChecked(true);
+            this.updateReCaptchaToken(recaptchaToken);
+        },
+        onCaptchaExpired: function() {
+            this.$refs.recaptcha.reset();
+            this.updateCaptchaChecked(false);
+            this.updateReCaptchaToken("");
+        },
         ...mapMutations("loading", ["updateIsLoading"]),
-        ...mapActions("register", [
-            "add"
-        ]),
+        ...mapActions("register", ["add"]),
         ...mapMutations("register", ["updateObj"]),
+        ...mapMutations("register", [
+            "updateReCaptchaToken",
+            "updateCaptchaChecked"
+        ]),
+        ...mapGetters("register", ["isCaptcha"]),
         async clientAdd() {
-                        const hasError = await this.$refs.observer.validate();
-            if (!hasError) {
+            const hasError = await this.$refs.observer.validate();
+            this.isCaptchaChecked = this.isCaptcha();
+            if (!hasError || !this.isCaptchaChecked) {
                 return;
             }
 
@@ -271,13 +289,13 @@ export default {
                 if (await msg_YN(this.$bvModal, "đăng ký")) {
                     this.updateIsLoading(true);
                     const result = await this.add();
-
-                    if (result && result.status == 200) {
+                    if (result && result.status == 201) {
                         this.$bvToast.toast("Đăng ký thành công!", {
                             title: `Thông báo!`,
                             variant: "success",
                             autoHideDelay: 100
                         });
+                        this.newForm();
                     }
                 }
             } catch (error) {
@@ -292,21 +310,22 @@ export default {
             }
         },
         newForm() {
-            this.updateObj(["UserName", ""]);
-            this.updateObj(["PassWord", ""]);
-            this.updateObj(["RePassWord", ""]);
-            this.updateObj(["Email", ""]);
+            this.updateObj(["UserName", null]);
+            this.updateObj(["PassWord", null]);
+            this.updateObj(["RePassWord", null]);
+            this.updateObj(["Email", null]);
+            this.updateObj(["Name", null]);
 
             requestAnimationFrame(() => {
                 this.$refs.observer.reset();
             });
 
-            this.updateIsLoading(false);
+            this.isCaptchaChecked = true;
+            this.$refs.recaptcha.reset();
         }
     },
     async mounted() {
         this.updateIsLoading(true);
-        // await this.loadsender();
         this.newForm();
         this.updateIsLoading(false);
     }
