@@ -200,21 +200,22 @@ export default {
             }
         },
         newForm() {
-            this.updateService(["UserName", null]);
-            this.updateService(["FullName", null]);
-            this.updateService(["Email", null]);
+            this.updateService(["UserName", ""]);
+            this.updateService(["FullName", ""]);
+            this.updateService(["Email", ""]);
             requestAnimationFrame(() => {
                 this.$refs.observer.reset();
             });
         },
         async submitForm() {
             if (
-                this.UserName == null &&
-                this.FullName == null &&
-                this.Email == null
+                this.UserName == "" &&
+                this.FullName == "" &&
+                this.Email == ""
             ) {
                 await this.getListServiceRegister();
             }
+            
         }
     },
     async mounted() {

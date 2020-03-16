@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { userAPI } from "@/store/modules/api";
+import { serviceAPI } from "@/store/modules/api";
 
 const state = {
     fields: [
@@ -12,7 +12,7 @@ const state = {
         { key: "activation_state", label: "Trạng thái kích hoạt" },
         { key: "service_extension", label: "Gia hạn dịch vụ" }
     ],
-    
+    items: [],
     selectedvariant: "warning",
     hasData: true,
     totalRows: 1,
@@ -30,14 +30,17 @@ const state = {
 
 const actions = {
     async getListServiceRegister(context){
-        const results = await axios.get('https://api.myjson.com/bins/nwnp6');
-        console.log("getListServiceRegister -> results", results)
-        context.commit("updateItems", results.data );
+        const results = await axios.get(`${serviceAPI}`);
+        //console.log("getListServiceRegister -> results", results)
         // context.dispatch('Abo', kskdjaldskj);
         //return results.data;
-    }
+        context.commit("updateItems", results.data);
+        //console.log(results.data)
+    },
     
-    //async Abo(context) {
+    async filterService(context,service,perPage){
+        await axios.post(serviceAPI,...service,perPage)
+    }
 
 }
 
@@ -48,15 +51,17 @@ const mutations = {
             [field_value[0]]: field_value[1]
         });
     },
-    updateItems(state, field_value){
-        Object.assign(state.items, {
-            [field_value[0]]: field_value[1]
-        });
+    updateItems(state, items){
+        state.items = items;
     },
     updateCurrentPage(state, value) {
         state.currentPage = value;
     }
-    
+    // updateItems(state, items) {
+    //     state.items = items;
+    //     state.totalRows = items.length;
+    //     state.hasData = items.length != 0;
+    // },
 }
 
 export default {
