@@ -21,7 +21,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <!-- <b-nav-item right>Xin chào, Lê Tuấn Anh</b-nav-item> -->
-                    <b-nav-item right>
+                    <b-nav-item right @click="clientLogin">
                         <!-- <b-icon icon="power"></b-icon> -->
                         Đăng nhập
                     </b-nav-item>
@@ -71,6 +71,9 @@ export default {
         clientRegister() {
             this.logout();
             this.$router.push("/register");
+        },
+        clientLogin() {
+            this.$router.push("/login");
         }
     }
 };

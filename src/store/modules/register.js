@@ -49,7 +49,7 @@ const mutations = {
     },
     updateCaptchaChecked: (state, checked) => {
         state.captchaChecked = checked;
-    },
+    }
 }
 
 export default {
