@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 // import { userAPI } from "@/store/modules/api";
 
 const state = {
@@ -12,10 +12,7 @@ const state = {
         { key: "activation_state", label: "Trạng thái kích hoạt" },
         { key: "service_extension", label: "Gia hạn dịch vụ" }
     ],
-    items:[
-        {stt: "1", user_name: "leanh123", full_name: "Lê Tuấn Anh", email: "leanh@gmail.com", status_service: "Chưa đăng ký", expiration_date: "_",activation_state: "Bật" , service_extension: "Gia hạn" },
-        {stt: "2", user_name: "huynhhau1234", full_name: "Huỳnh Văn Hậu", email: "huynhhau55@gmail.com", status_service: "Đã đăng ký", expiration_date: "30/04/2020", activation_state: "Bật", service_extension: "Gia hạn" }
-    ],
+    
     selectedvariant: "warning",
     hasData: true,
     totalRows: 1,
@@ -24,29 +21,48 @@ const state = {
         UserName:"",
         FullName:"",
         Email:""
-    }
+    },
 }
 
-const getters = {}
+// const getters = {
+//     getABV(state)
+// }
 
- const actions = {
-//     async getListServiceRegister(context) {
-//         return await axios.get(userAPI, { });
-//     }
- }
+const actions = {
+    async getListServiceRegister(context){
+        const results = await axios.get('https://api.myjson.com/bins/nwnp6');
+        console.log("getListServiceRegister -> results", results)
+        context.commit("updateItems", results.data );
+        // context.dispatch('Abo', kskdjaldskj);
+        //return results.data;
+    }
+    
+    //async Abo(context) {
+
+}
+
 
 const mutations = {
-    // updateObj(state, field_value) {
-    //     Object.assign(state.obj, {
-    //         [field_value[0]]: field_value[1]
-    //     });
-    // }
+    updateService(state, field_value) {
+        Object.assign(state.service, {
+            [field_value[0]]: field_value[1]
+        });
+    },
+    updateItems(state, field_value){
+        Object.assign(state.items, {
+            [field_value[0]]: field_value[1]
+        });
+    },
+    updateCurrentPage(state, value) {
+        state.currentPage = value;
+    }
+    
 }
 
 export default {
     namespaced: true,
     state,
-    getters,
+    //getters,
     actions,
     mutations,
     
