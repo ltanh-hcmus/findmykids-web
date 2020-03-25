@@ -90,7 +90,7 @@ export default {
     },
     computed: {
         ...mapState("auth", {
-            siteKey: state => state.siteKey,
+            siteKey: state => state.siteKey
         }),
         UserName: {
             get() {
@@ -136,15 +136,17 @@ export default {
 
             try {
                 this.updateIsLoading(true);
-                const authenticated = this.login();
-
-                if (authenticated) {
-                    this.$router.push("/");
+                const result = await this.login();
+                if (result) {
+                    this.$router.push("/").catch(error => {
+                        if (error.name != "NavigationDuplicated") {
+                            throw error;
+                        }
+                    });
                 }
             } catch (error) {
                 throw new error();
             } finally {
-                this.newForm();
                 this.updateIsLoading(false);
             }
         },
