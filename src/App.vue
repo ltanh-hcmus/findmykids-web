@@ -19,15 +19,14 @@
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav class="ml-auto">
-                    <!-- <b-nav-item right>Xin chào, Lê Tuấn Anh</b-nav-item> -->
-                    <b-nav-item right>
-                        <!-- <b-icon icon="power"></b-icon> -->
-                        Đăng nhập
-                    </b-nav-item>
-                    <b-nav-item right @click="clientRegister">
-                        <!-- <b-icon icon="power"></b-icon> -->
-                        Đăng ký
+                <b-navbar-nav class="ml-auto" v-show="!isLogin">
+                    <b-nav-item right @click="clientLogin">Đăng nhập</b-nav-item>
+                    <b-nav-item right @click="clientRegister">Đăng ký</b-nav-item>
+                </b-navbar-nav>
+                <b-navbar-nav class="ml-auto" v-show="isLogin">
+                    <b-nav-item right>Xin chào, {{ this.getName() }}</b-nav-item>
+                    <b-nav-item right @click="clientLogout">
+                        <b-icon icon="power"></b-icon>Đăng xuất
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -45,7 +44,7 @@
 
 <script>
 import Loading from "@/components/common/Loading";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
     data() {
@@ -60,7 +59,8 @@ export default {
     },
     computed: {
         ...mapState("auth", {
-            isLogin: state => state.isLogin
+            isLogin: state => state.isLogin,
+            name: state => state.Name
         })
     },
     components: {
@@ -68,10 +68,31 @@ export default {
     },
     methods: {
         ...mapActions("auth", ["logout"]),
-        clientRegister() {
+        ...mapGetters("auth", ["getName"]),
+        clientLogout() {
             this.logout();
-            this.$router.push("/register");
+            this.$router.push("/").catch(error => {
+                if (error.name != "NavigationDuplicated") {
+                    throw error;
+                }
+            });
+        },
+        clientRegister() {
+            this.$router.push("/register").catch(error => {
+                if (error.name != "NavigationDuplicated") {
+                    throw error;
+                }
+            });
+        },
+        clientLogin() {
+            this.$router.push("/login").catch(error => {
+                if (error.name != "NavigationDuplicated") {
+                    throw error;
+                }
+            });
         }
+    },
+    mounted() {
     }
 };
 </script>

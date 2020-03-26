@@ -203,7 +203,6 @@ import VueRecaptcha from "vue-recaptcha";
 export default {
     data() {
         return {
-            filter: null,
             isCaptchaChecked: true
         };
     },
@@ -214,9 +213,7 @@ export default {
     },
     computed: {
         ...mapState("register", {
-            user: state => state.user,
             siteKey: state => state.siteKey,
-            captchaChecked: state => state.captchaChecked
         }),
 
         UserName: {

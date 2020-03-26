@@ -21,13 +21,32 @@ Vue.config.productionTip = false
 axios.defaults.timeout = 5000;
 axios.interceptors.response.use(function (response) {
   return response;
-}, function (error) {
-  const vm = new Vue()
-  vm.$bvToast.toast(JSON.parse(error.response.request.response)[0].msg, {
-    title: `Thông báo lỗi!`,
-    variant: 'danger',
-  })
-  return error;
+}, async function (error) {
+  
+  // Return any error which is not due to authentication back to the calling service
+  if (error.response.status !== 401) {
+    const vm = new Vue()
+    vm.$bvToast.toast(JSON.parse(error.response.request.response)[0].msg, {
+      title: `Thông báo lỗi!`,
+      variant: 'danger',
+    })
+    return new Promise((resolve, reject) => {
+      reject(error);
+    });
+  }
+
+    // // Logout user if token refresh didn't work or user is disabled
+    // if (error.config.url == '/api/token/refresh' || error.response.message == 'Account is disabled.') {
+    
+    //   TokenStorage.clear();
+    //   router.push({ name: 'root' });
+
+    //   return new Promise((resolve, reject) => {
+    //     reject(error);
+    //   });
+    // }
+  
+    await this.$store.dispatch("auth/reNewToken");
 });
 
 // Add a request interceptor
@@ -41,13 +60,16 @@ axios.interceptors.request.use(function (config) {
 });
 
 Vue.config.errorHandler = function (err, vm, info) {
-  vm.$bvToast.toast('Đã có lỗi sảy ra!', {
+  vm.$bvToast.toast('Đã có lỗi xảy ra!', {
     title: `Thông báo lỗi!`,
     variant: 'danger',
   });
 
   // return [err, vm, info]
+  console.log(err)
+  console.log('---------------------')
   console.log(err, vm, info);
+  return Promise.reject(err);
 }
 
 new Vue({
