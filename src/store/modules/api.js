@@ -1,4 +1,4 @@
-﻿export const host = 'http://localhost:5000';
+﻿export const host = 'http://54.169.14.7:5000';
 
 export const receiverAPI = host + 'customer/receivers';
 export const bankAPI = host + 'customer/banks';
