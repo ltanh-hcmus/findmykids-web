@@ -26,7 +26,6 @@ const state = {
 const actions = {
     async getListServiceRegister(context) {
         const results = await axios.get(membersManagerAPI);
-        console.log("getListServiceRegister -> results", results.data)
         context.commit("updateItems", results.data);
     },
 
@@ -34,6 +33,8 @@ const actions = {
         await axios.post(membersManagerAPI, ...service, perPage)
     }
 }
+
+const getters = {}
 
 const mutations = {
     updateService(state, field_value) {
@@ -58,8 +59,7 @@ const mutations = {
 export default {
     namespaced: true,
     state,
-    //getters,
+    getters,
     actions,
     mutations,
-
 }
