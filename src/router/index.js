@@ -43,18 +43,18 @@ const routes = [
   {
     path: '/payment/oneyear',
     name: 'PaymentForOne Yer',
+    
     component: () => import('../views/payment/PayYear.vue')
   },
+
   {
-    path: '/payment/forever',
+    path: '/payment/threemonth',
     name: 'PaymentForforever',
-    component: () => import('../views/payment/PayForever.vue')
+    component: () => import('../views/payment/PayThreeMoth.vue')
   },
-  {
-    path: '/payment/onemoth/paypal',
-    name: 'PaymentForPaypal',
-    component: () => import('../components/Payment/pay.vue')
-  },
+
+
+  
 ]
 
 const router = new VueRouter({
