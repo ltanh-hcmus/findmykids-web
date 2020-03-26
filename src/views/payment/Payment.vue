@@ -10,8 +10,8 @@
                             to="/payment/onemoth"
                         >1 moth
                         </b-button>
+                        <b-button variant="primary" size="lg" to="/payment/threemonth">3 moths</b-button>
                         <b-button variant="primary" size="lg" to="/payment/oneyear">1 year</b-button>
-                        <b-button variant="primary" size="lg" to="/payment/forever">forever</b-button>
                     </b-button-group>
                 </b-row>
                 <b-row >

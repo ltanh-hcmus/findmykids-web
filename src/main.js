@@ -8,6 +8,7 @@ import axios from 'axios'
 import './plugins/bootstrap-vue'
 import './plugins/vee-validate'
 
+
 Vue.config.productionTip = false
 
 // Vue.config.errorHandler = function (err, vm, info) {
