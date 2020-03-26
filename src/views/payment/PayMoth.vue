@@ -17,14 +17,14 @@
                     </b-col>
                 </b-row>     
                 
-                <b-row>
+                <!-- <b-row>
                     <b-col lg="5"/>
                     <b-col lg="4">
                         <div id="paypal-button-container"/>
                     </b-col>
                     
                     
-                </b-row>
+                </b-row> -->
             </b-container>
         </b-form>
 </template>
@@ -32,7 +32,7 @@
 <script>
 export default {
     
-        name: "paypal"
+       
     
 }
 

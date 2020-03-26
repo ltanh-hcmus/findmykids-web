@@ -1,5 +1,4 @@
 <template>
-    <ValidationObserver ref="observer">
         <b-form>
             <b-container class="mt-5" style="min-height: 800px">
                 <b-row>
@@ -18,16 +17,16 @@
                     </b-col>
                 </b-row>     
                 
-                <b-row align-h="center">
+                <!-- <b-row align-h="center">
                     <b-col lg="2"/>
                     <b-col lg="4" class="mx-auto">
                         <div id="paypal-button-container-3t"/>
                     </b-col>
                     
-                </b-row>
+                </b-row> -->
             </b-container>
         </b-form>
-    </ValidationObserver>
+
 </template>
 
 <script>
