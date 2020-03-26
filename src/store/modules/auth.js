@@ -11,7 +11,7 @@ const state = {
         recaptchaToken: ""
     },
     captchaChecked: false,
-    siteKey: "6LfrwNEUAAAAAJHcipukpxMxlsSKrlotSv37V_I1",
+    siteKey: "6Lco3dQUAAAAAKaK0-lubZia99rc2AEgE_3_a6As",
     isLogin: localStorage.getItem('user-token'),
     Name: ""
 }
