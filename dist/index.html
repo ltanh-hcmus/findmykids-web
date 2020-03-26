@@ -1,1 +1,50 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.png><title>Find My Kids</title><link href=/js/chunk-2d0b2739.17e5b1fc.js rel=prefetch><link href=/js/chunk-2d0ba51d.09aeb67b.js rel=prefetch><link href=/js/chunk-2d0be29f.0b5d05ac.js rel=prefetch><link href=/js/chunk-2d0d72f0.42f9bf21.js rel=prefetch><link href=/js/chunk-2d0dd0c8.715f9dc0.js rel=prefetch><link href=/js/chunk-2d0deca7.d4bdead0.js rel=prefetch><link href=/js/chunk-5328e992.2178c3bc.js rel=prefetch><link href=/js/chunk-cab976c0.c8a1a688.js rel=prefetch><link href=/css/app.c1cce059.css rel=preload as=style><link href=/css/chunk-vendors.b9800350.css rel=preload as=style><link href=/js/app.e378206d.js rel=preload as=script><link href=/js/chunk-vendors.6411b0b9.js rel=preload as=script><link href=/css/chunk-vendors.b9800350.css rel=stylesheet><link href=/css/app.c1cce059.css rel=stylesheet></head><body><noscript><strong>We're sorry but findmykids-web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.6411b0b9.js></script><script src=/js/app.e378206d.js></script></body></html>
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.png><title>Find My Kids</title><link href=/js/chunk-2d0b2739.a0d6e776.js rel=prefetch><link href=/js/chunk-2d0ba51d.1a003737.js rel=prefetch><link href=/js/chunk-2d0be29f.36355bdb.js rel=prefetch><link href=/js/chunk-2d0dd0c8.906d9bed.js rel=prefetch><link href=/js/chunk-2d0e1f9c.4fc163bb.js rel=prefetch><link href=/js/chunk-5328e992.d4469173.js rel=prefetch><link href=/js/chunk-cab976c0.8449023a.js rel=prefetch><link href=/css/app.05377458.css rel=preload as=style><link href=/css/chunk-vendors.b9800350.css rel=preload as=style><link href=/js/app.88676c01.js rel=preload as=script><link href=/js/chunk-vendors.6411b0b9.js rel=preload as=script><link href=/css/chunk-vendors.b9800350.css rel=stylesheet><link href=/css/app.05377458.css rel=stylesheet></head><body><noscript><strong>We're sorry but findmykids-web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src="https://www.paypal.com/sdk/js?client-id=AZougqOyKucRxBRb-R6xthxmwf6EyV9PjUUsSgA7BpvLHQ8MQ9JOcygThdXyIjRhXFnOU7uHJzi8INex&vault=true" data-sdk-integration-source=button-factory></script><script>paypal
+    .Buttons({
+      style: {
+        shape: "rect",
+        color: 'gold',
+        layout: "vertical",
+        label: 'subscribe',
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          plan_id: 'P-22X55209K5606000JLZ6CVMI'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert("Đăng ký thành công");
+      }
+    })
+    .render("#paypal-button-container");</script><script>paypal.Buttons({
+        style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'subscribe',
+            
+        },
+        createSubscription: function(data, actions) {
+          return actions.subscription.create({
+            'plan_id': 'P-14662570TP554383DLZ5Y5UQ'
+          });
+        },
+        onApprove: function(data, actions) {
+          alert(data.subscriptionID);
+        }
+    }).render('#paypal-button-container-3t');</script><script>paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe',
+          
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          'plan_id': 'P-5PN06135VK478952TLZ5ZNPI'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert("Đăng ký thành công");
+      }
+  }).render('#paypal-button-container-1y');</script><script src=/js/chunk-vendors.6411b0b9.js></script><script src=/js/app.88676c01.js></script></body></html>

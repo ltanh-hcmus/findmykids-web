@@ -1,4 +1,5 @@
 <template>
+    <ValidationObserver ref="observer">
         <b-form>
             <b-container class="mt-5" style="min-height: 800px">
                 <b-row>
@@ -13,29 +14,29 @@
                         <label>A license for 1 device</label>
                     </b-col>
                     <b-col>
-                        <label>2.99 $</label>
+                        <label>16.99 $</label>
                     </b-col>
                 </b-row>     
                 
-                <b-row>
-                    <b-col lg="5"/>
-                    <b-col lg="4">
-                        <div id="paypal-button-container"/>
+                <b-row align-h="center">
+                    <b-col lg="2"/>
+                    <b-col lg="4" class="mx-auto">
+                        <div id="paypal-button-container-3t"/>
                     </b-col>
-                    
                     
                 </b-row>
             </b-container>
         </b-form>
+    </ValidationObserver>
 </template>
 
 <script>
-export default {
-    
-        name: "paypal"
-    
-}
 
+export default {
+    components: {
+        
+    }
+};
 </script>
 
 <style lang="scss" scoped>

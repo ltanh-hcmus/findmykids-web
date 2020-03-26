@@ -8,6 +8,7 @@ import axios from 'axios'
 import './plugins/bootstrap-vue'
 import './plugins/vee-validate'
 
+
 Vue.config.productionTip = false
 
 // Vue.config.errorHandler = function (err, vm, info) {
@@ -59,16 +60,16 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
-Vue.config.errorHandler = function (err, vm, info) {
+Vue.config.errorHandler = function (err, vm) {
   vm.$bvToast.toast('Đã có lỗi xảy ra!', {
     title: `Thông báo lỗi!`,
     variant: 'danger',
   });
 
   // return [err, vm, info]
-  console.log(err)
-  console.log('---------------------')
-  console.log(err, vm, info);
+  // console.log(err)
+  // console.log('---------------------')
+  // console.log(err, vm, info);
   return Promise.reject(err);
 }
 
