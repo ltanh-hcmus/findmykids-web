@@ -5,6 +5,7 @@ import auth from '@/store/modules/auth'
 import loading from '@/store/modules/loading'
 import register from '@/store/modules/register'
 import service from '@/store/modules/service'
+import token from '@/store/modules/token'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     auth,
     loading,
     register,
-    service
+    service,
+    token
   }
 })

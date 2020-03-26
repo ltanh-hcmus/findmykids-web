@@ -1,49 +1,39 @@
 import axios from 'axios';
-import { serviceAPI } from "@/store/modules/api";
+import { membersManagerAPI } from "@/store/modules/api";
 
 const state = {
     fields: [
-        { key: "stt" , label: "STT" },
-        { key: "user_name", label: "Tên đăng nhập" },
-        { key: "full_name", label: "Họ tên"},
-        { key: "email", label: "Email" },
-        { key: "status_service", label: "Trạng thái dịch vụ" },
-        { key: "expiration_date", label: "Ngày hết hạn" },
-        { key: "activation_state", label: "Trạng thái kích hoạt" },
-        { key: "service_extension", label: "Gia hạn dịch vụ" }
+        { key: "userName", label: "Tên đăng nhập", sortable: true },
+        { key: "name", label: "Họ tên", sortable: true },
+        { key: "email", label: "Email", sortable: true },
+        { key: "date", label: "Ngày lập", sortable: true },
+        { key: "state", label: "Trạng thái", sortable: true },
+        { key: "plans", label: "Chi tiết", sortable: true },
     ],
     items: [],
     selectedvariant: "warning",
     hasData: true,
     totalRows: 1,
-    perPage:10,
+    perPage: 10,
     service: {
-        UserName:"",
-        FullName:"",
-        Email:""
+        UserName: "",
+        FullName: "",
+        Email: "",
+        Page: 1
     },
 }
-
-// const getters = {
-//     getABV(state)
-// }
 
 const actions = {
-    async getListServiceRegister(context){
-        const results = await axios.get(`${serviceAPI}`);
-        //console.log("getListServiceRegister -> results", results)
-        // context.dispatch('Abo', kskdjaldskj);
-        //return results.data;
+    async getListServiceRegister(context) {
+        const results = await axios.get(membersManagerAPI);
+        console.log("getListServiceRegister -> results", results.data)
         context.commit("updateItems", results.data);
-        //console.log(results.data)
     },
-    
-    async filterService(context,service,perPage){
-        await axios.post(serviceAPI,...service,perPage)
+
+    async filterService(context, service, perPage) {
+        await axios.post(membersManagerAPI, ...service, perPage)
     }
-
 }
-
 
 const mutations = {
     updateService(state, field_value) {
@@ -51,8 +41,9 @@ const mutations = {
             [field_value[0]]: field_value[1]
         });
     },
-    updateItems(state, items){
+    updateItems(state, items) {
         state.items = items;
+        state.totalRows = items.length;
     },
     updateCurrentPage(state, value) {
         state.currentPage = value;
@@ -70,5 +61,5 @@ export default {
     //getters,
     actions,
     mutations,
-    
+
 }

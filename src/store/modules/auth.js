@@ -57,7 +57,6 @@ const actions = {
         }
     },
     async reNewToken({ state }) {
-        console.log("reNewToken -> userToken.accessToken")
         if (state.isLogin) {
             const userToken = JSON.parse(localStorage.getItem('user-token').refreshToken);
 

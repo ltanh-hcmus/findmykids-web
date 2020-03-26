@@ -25,7 +25,6 @@ const actions = {
     async add(context) {
         const objAdd = { ...context.state.obj };
         const recaptchaToken = objAdd.recaptchaToken;
-        console.log("add -> recaptchaToken", recaptchaToken);
         delete (objAdd.recaptchaToken);
         delete (objAdd.RePassWord);
         return await axios.post(userAPI, { ...objAdd }, {

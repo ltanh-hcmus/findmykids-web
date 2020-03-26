@@ -1,121 +1,282 @@
 <template>
     <ValidationObserver ref="observer">
-        <div style="min-height: 800px;">
-            <b-row class="mt-4"></b-row>
-            <b-row>
-                <b-col lg="6" class="my-1">
-                    <b-form-group
-                        label="Tên đăng nhập"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-for="filterInput"
-                        class="mb-0"
-                    >
-                        <b-form-input
-                            v-model.trim="UserName"
-                            maxlength="250"
-                            type="search"
-                            id="userName"
-                        />
-                    </b-form-group>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col lg="6" class="my-1">
-                    <b-form-group
-                        label="Họ tên"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-for="filterInput"
-                        class="mb-0"
-                    >
-                        <b-form-input
-                            v-model.trim="FullName"
-                            maxlength="250"
-                            type="search"
-                            id="filterInput"
-                        />
-                    </b-form-group>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col lg="6" class="my-1">
-                    <b-form-group
-                        label="Email"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-for="filterInput"
-                        class="mb-0"
-                        :outlined="false"
-                        :borderless="true"
-                        head-variant="dark"
-                        responsive="sm"
-                    >
-                        <b-form-input
-                            v-model.trim="Email"
-                            maxlength="250"
-                            type="search"
-                            id="filterInput"
-                        />
-                    </b-form-group>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col lg="6" class="my-1">
-                    <b-form-group label-cols-sm="3">
-                        <b-input-group>
-                            <b-button-group>
-                                <b-button variant="success" @click="submitForm">Tìm kiếm</b-button>
-                                <b-button variant="light" @click="resetForm">
-                                    <b-icon icon="arrow-counterclockwise"></b-icon>
-                                </b-button>
-                            </b-button-group>
-                        </b-input-group>
-                    </b-form-group>
-                </b-col>
-            </b-row>
+        <b-container fluid class="mt-3">
+            <h1 class="bv-no-focus-ring" tabindex="-1">
+                <span class="bd-content-title">Quản lý người đăng ký và giấy phép dịch vụ</span>
+            </h1>
 
-            <b-row align-h="center">
-                <b-col lg="11" class="my-1">
-                    <b-table
-                        striped
-                        hover
-                        :fields="fields"
-                        :items="items"
-                        :selected-variant="selectedvariant"
-                        :outlined="false"
-                        :borderless="true"
-                        head-variant="dark"
-                        :sort-by.sync="sortBy"
-                        :sort-desc.sync="sortDesc"
-                        :filterIncludedFields="filterOn"
-                        :select-mode="selectMode"
-                        class="mb-10"
-                    >
-                        <template v-slot:cell(activation_state)="data">
-                            <b-link
-                                :href="`#${data.value.replace(/[^a-z]+/i, '-').toLowerCase()}`"
-                            >{{ data.value }}</b-link>
-                        </template>
-                        <template v-slot:cell(service_extension)="data">
-                            <b-link
-                                :href="`#${data.value.replace(/[^a-z]+/i, '-').toLowerCase()}`"
-                            >{{ data.value }}</b-link>
-                        </template>
-                    </b-table>
-                </b-col>
-            </b-row>
-            <b-row align-h="center">
-                <b-col lg="11" class="my-1">
-                    <b-pagination
-                        v-show="hasData"
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                    ></b-pagination>
-                </b-col>
-            </b-row>
-        </div>
+            <div>
+                <b-alert show variant="success">
+                    <h4 class="alert-heading">Thống kê</h4>
+                    <b-list-group>
+                        <b-list-group-item>Tổng số người đăng ký: 1000 người.</b-list-group-item>
+                        <b-list-group-item>Tổng số người được theo dõi (trẻ em): 2050 người.</b-list-group-item>
+                        <b-list-group-item>Tổng số người đang sử dụng dịch vụ: 901 người.</b-list-group-item>
+                    </b-list-group>
+                </b-alert>
+            </div>
+            <b-alert show variant="light">
+                <div style="min-height: 800px;">
+                    <b-row class="mt-4"></b-row>
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group
+                                label="Tên đăng nhập"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="filterInput"
+                                class="mb-0"
+                            >
+                                <b-form-input
+                                    v-model.trim="UserName"
+                                    maxlength="250"
+                                    type="search"
+                                    id="userName"
+                                />
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group
+                                label="Họ tên"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="filterInput"
+                                class="mb-0"
+                            >
+                                <b-form-input
+                                    v-model.trim="FullName"
+                                    maxlength="250"
+                                    type="search"
+                                    id="filterInput"
+                                />
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group
+                                label="Email"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="filterInput"
+                                class="mb-0"
+                                :outlined="false"
+                                :borderless="true"
+                                head-variant="dark"
+                                responsive="sm"
+                            >
+                                <b-form-input
+                                    v-model.trim="Email"
+                                    maxlength="250"
+                                    type="search"
+                                    id="filterInput"
+                                />
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group
+                                label="Ngày lập từ"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="filterInput"
+                                class="mb-0"
+                                :outlined="false"
+                                :borderless="true"
+                                head-variant="dark"
+                                responsive="sm"
+                            >
+                                <b-form-datepicker
+                                    id="example-datepicker"
+                                    v-model="value33"
+                                    class="mb-2"
+                                ></b-form-datepicker>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group
+                                label="Ngày lập đến"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="filterInput"
+                                class="mb-0"
+                                :outlined="false"
+                                :borderless="true"
+                                head-variant="dark"
+                                responsive="sm"
+                            >
+                                <b-form-datepicker
+                                    id="example-datepicker33"
+                                    v-model="value33"
+                                    class="mb-2"
+                                ></b-form-datepicker>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col lg="6">
+                            <b-form-group
+                                label="Trạng thái giấy phép"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                            >
+                                <b-input-group>
+                                    <b-form-select
+                                        name="Trạng thái giấy phép"
+                                        v-model.trim="license"
+                                        :options="licenses"
+                                    ></b-form-select>
+                                </b-input-group>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col lg="6" class="my-1">
+                            <b-form-group label-cols-sm="3">
+                                <b-input-group>
+                                    <b-button-group>
+                                        <b-button variant="success" @click="submitForm">Tìm kiếm</b-button>
+                                        <b-button variant="light" @click="resetForm">
+                                            <b-icon icon="arrow-counterclockwise"></b-icon>
+                                        </b-button>
+                                    </b-button-group>
+                                </b-input-group>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-alert show variant="danger">
+                        <p class="mb-0">
+                            Số lượng kết quả tìm kiếm
+                            <span class="alert-link">10</span> dòng.
+                        </p>
+                    </b-alert>
+
+                    <b-row>
+                        <b-col lg="12">
+                            <b-table
+                                :borderless="true"
+                                :current-page="currentPage"
+                                :fields="fields"
+                                :filter="filter"
+                                :items="items"
+                                :outlined="false"
+                                :per-page="perPage"
+                                :striped="true"
+                                head-variant="dark"
+                                responsive="sm"
+                                selectable
+                                selected-variant="warning"
+                                select-mode="single"
+                                hover
+                            >
+                                <template v-slot:cell(state)="row">
+                                    <b-form-checkbox
+                                        v-model="row.state"
+                                        button-variant="warning"
+                                        switch
+                                        size="lg"
+                                    ></b-form-checkbox>
+                                </template>
+                                <template v-slot:cell(plans)="row">
+                                    <b-button
+                                        size="sm"
+                                        @click="row.toggleDetails"
+                                        class="mr-2"
+                                        variant="primary"
+                                    >{{ row.detailsShowing ? 'Ẩn' : 'Hiện'}} chi tiết</b-button>
+                                </template>
+
+                                <template v-slot:row-details="row">
+                                    <div class="alert alert-light">
+                                        <p class="mb-2">
+                                            <span class="alert-link">Danh sách trẻ</span>
+                                        </p>
+                                        <b-table
+                                            :borderless="true"
+                                            :fields="fieldsChidren"
+                                            :items="row.item.children"
+                                            :outlined="false"
+                                            :per-page="perPage"
+                                            :striped="true"
+                                            head-variant="dark"
+                                            responsive="sm"
+                                            selectable
+                                            selected-variant="warning"
+                                            select-mode="single"
+                                            hover
+                                        ></b-table>
+                                    </div>
+
+                                    <div class="alert alert-light">
+                                        <p class="mb-2">
+                                            <span class="alert-link">Giấy phép sử dụng dịch vụ</span> (Ngày hết hạn:
+                                            <span
+                                                class="alert-link"
+                                            >{{row.item.duedate}}</span>
+                                            )
+                                        </p>
+
+                                        <b-table
+                                            :borderless="true"
+                                            :fields="fieldsDetail"
+                                            :items="row.item.plans"
+                                            :outlined="false"
+                                            :per-page="perPage"
+                                            :striped="true"
+                                            head-variant="dark"
+                                            responsive="sm"
+                                            selectable
+                                            selected-variant="warning"
+                                            select-mode="single"
+                                            hover
+                                        ></b-table>
+                                    </div>
+
+                                    <b-form-group>
+                                        <b-input-group>
+                                            <b-button-group>
+                                                <b-button
+                                                    variant="success"
+                                                    @click="submitForm"
+                                                >Xác thực Mã subcriber</b-button>
+                                                <b-button
+                                                    size="sm"
+                                                    @click="row.toggleDetails"
+                                                    variant="primary"
+                                                >Ẩn chi tiết</b-button>
+                                                <b-button variant="light" @click="resetForm">
+                                                    <b-icon icon="arrow-counterclockwise"></b-icon>
+                                                </b-button>
+                                            </b-button-group>
+                                        </b-input-group>
+                                    </b-form-group>
+                                </template>
+                            </b-table>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col lg="12">
+                            <b-pagination
+                                v-show="hasData"
+                                v-model="currentPage"
+                                :total-rows="totalRows"
+                                :per-page="perPage"
+                            ></b-pagination>
+                        </b-col>
+                    </b-row>
+                </div>
+            </b-alert>
+        </b-container>
     </ValidationObserver>
 </template>
 
@@ -125,25 +286,34 @@ import { msg_YN } from "@/utils/messagebox.js";
 import { ValidationObserver } from "vee-validate";
 export default {
     components: {
-        ValidationObserver,
+        ValidationObserver
         //ValidationProvider
     },
     data() {
         return {
-            filter: null
+            filter: null,
+            checked1: true,
+            fieldsDetail: [
+                { key: "id", label: "Mã subcriber", sortable: true },
+                { key: "name", label: "Giấy phép", sortable: true },
+                { key: "status", label: "Trạng thái", sortable: true },
+                { key: "price", label: "Giá", sortable: true },
+                { key: "description", label: "Mô tả", sortable: true },
+                { key: "create_time", label: "Ngày tạo", sortable: true }
+            ],
+            fieldsChidren: [
+                { key: "id", label: "Mã trẻ", sortable: true },
+                { key: "name", label: "Tên trẻ", sortable: true }
+            ],
+            licenses: [
+                { text: "Không sử dụng", value: 1 },
+                { text: "Có sử dụng và còn hạn", value: 0 },
+                { text: "Có sử dụng và hết hạn", value: 0 }
+            ]
         };
     },
     computed: {
-        // ...mapState("service", {
-        // fields: state => state.fields,
-        // items: state => state.items,
-        // hasData: state => state.hasData,
-        // totalRows: state => state.totalRows,
-        // })
-
         ...mapState("service", {
-            sortBy: state => state.sortBy,
-            sortDesc: state => state.sortDesc,
             fields: state => state.fields,
             items: state => state.items,
             hasData: state => state.hasData,
@@ -163,7 +333,6 @@ export default {
                 this.updateService(["UserName", value]);
             }
         },
-
         FullName: {
             get() {
                 return this.$store.state.service.service.FullName;
@@ -172,7 +341,6 @@ export default {
                 this.updateService(["FullName", value]);
             }
         },
-
         Email: {
             get() {
                 return this.$store.state.service.service.Email;
@@ -192,7 +360,8 @@ export default {
         }
     },
     methods: {
-        ...mapMutations("service", ["updateService","updateCurrentPage"]),
+        ...mapMutations("loading", ["updateIsLoading"]),
+        ...mapMutations("service", ["updateService", "updateCurrentPage"]),
         ...mapActions("service", ["getListServiceRegister"]),
         async resetForm() {
             if (await msg_YN(this.$bvModal, "làm mới")) {
@@ -213,13 +382,15 @@ export default {
                 this.FullName == "" &&
                 this.Email == ""
             ) {
-                await this.getListServiceRegister();
+                // await this.getListServiceRegister();
             }
-            
         }
     },
     async mounted() {
         // this.newForm();
+        this.updateIsLoading(true);
+        await this.getListServiceRegister();
+        this.updateIsLoading(false);
     }
 };
 </script>
